@@ -1,1 +1,572 @@
-[]
+[
+    {
+        "id": "9c1a3350.4efa6",
+        "type": "tab",
+        "label": "PublicoDatosRpi",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dfb2925a.74b8c",
+        "type": "tab",
+        "label": "DashboardRpi",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "13b9b9f3.fd5f5e",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "enriquecrespo.com",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c6142d20.8e121",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1b59.1ca2aca7e3",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "2f55fb43.ddeedc",
+        "type": "ui_group",
+        "name": "Temperatura Raspberry",
+        "tab": "c6142d20.8e121",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cf00cc42.7f128",
+        "type": "ui_group",
+        "name": "ChartTemperatura",
+        "tab": "c6142d20.8e121",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "af22b399.12614",
+        "type": "exec",
+        "z": "9c1a3350.4efa6",
+        "command": "vcgencmd measure_temp",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "RPi Temp.",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "14f0a295.59181d"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "408435c9.447fec",
+        "type": "exec",
+        "z": "9c1a3350.4efa6",
+        "command": "top -d 0.5 -b -n2 | grep \"Cpu(s)\"|tail -n 1 | awk '{print $2 + $4}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "CPU Load",
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "2ace10a7.f7fe18"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8fbcbdf9.549b7",
+        "type": "exec",
+        "z": "9c1a3350.4efa6",
+        "command": "free | grep Mem | awk '{print 100*($4+$6+$7)/$2}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "Free Memory",
+        "x": 290.0000190734863,
+        "y": 344.22223567962646,
+        "wires": [
+            [
+                "daf6433c.bad81"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "14f0a295.59181d",
+        "type": "function",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "func": "str = msg.payload\nmsg.payload = str.substring(5,9);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 436.6666679382324,
+        "y": 186.66666507720947,
+        "wires": [
+            [
+                "119a7f9.a827f8"
+            ]
+        ]
+    },
+    {
+        "id": "daf6433c.bad81",
+        "type": "function",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "func": "str = msg.payload\nmsg.payload = parseInt(str.substring(0,str.length - 1));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 360,
+        "wires": [
+            [
+                "abc70a15.a0551"
+            ]
+        ]
+    },
+    {
+        "id": "7c41a351.85584c",
+        "type": "inject",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "af22b399.12614",
+                "408435c9.447fec",
+                "8fbcbdf9.549b7"
+            ]
+        ]
+    },
+    {
+        "id": "119a7f9.a827f8",
+        "type": "mqtt out",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/temperaturaRpi",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "13b9b9f3.fd5f5e",
+        "x": 720,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2ace10a7.f7fe18",
+        "type": "mqtt out",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/cpuRpi",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "13b9b9f3.fd5f5e",
+        "x": 560,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "abc70a15.a0551",
+        "type": "mqtt out",
+        "z": "9c1a3350.4efa6",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/freememRpi",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "13b9b9f3.fd5f5e",
+        "x": 730,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "7e6c95a2.411db4",
+        "type": "mqtt in",
+        "z": "dfb2925a.74b8c",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/temperaturaRpi",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "13b9b9f3.fd5f5e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "cee3e311.c07038",
+                "dcfe7743.6f191"
+            ]
+        ]
+    },
+    {
+        "id": "241cb489.ba92a4",
+        "type": "mqtt in",
+        "z": "dfb2925a.74b8c",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/freememRpi",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "13b9b9f3.fd5f5e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 210,
+        "y": 260,
+        "wires": [
+            [
+                "9ec4afab.ded838"
+            ]
+        ]
+    },
+    {
+        "id": "9badd8c0.2dc478",
+        "type": "mqtt in",
+        "z": "dfb2925a.74b8c",
+        "name": "",
+        "topic": "aprendiendonodered21/marcos/cpuRpi",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "13b9b9f3.fd5f5e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 200,
+        "y": 320,
+        "wires": [
+            [
+                "5bc7438f.5739dc",
+                "a2bfe009.ced5a8"
+            ]
+        ]
+    },
+    {
+        "id": "cee3e311.c07038",
+        "type": "ui_gauge",
+        "z": "dfb2925a.74b8c",
+        "name": "TemperaturaRpi",
+        "group": "2f55fb43.ddeedc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura Rpi",
+        "label": "ºC",
+        "format": "{{value}}",
+        "min": "20",
+        "max": "70",
+        "colors": [
+            "#53d5fd",
+            "#77bb41",
+            "#ca3838"
+        ],
+        "seg1": "30",
+        "seg2": "60",
+        "x": 540,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5bc7438f.5739dc",
+        "type": "ui_gauge",
+        "z": "dfb2925a.74b8c",
+        "name": "Cpu Raspberry",
+        "group": "2f55fb43.ddeedc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Uso CPU Rpi",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#53d5fd",
+            "#77bb41",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "75",
+        "x": 540,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "dcfe7743.6f191",
+        "type": "ui_chart",
+        "z": "dfb2925a.74b8c",
+        "name": "Temperatura Chart",
+        "group": "cf00cc42.7f128",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "1000",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 550,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9ec4afab.ded838",
+        "type": "ui_gauge",
+        "z": "dfb2925a.74b8c",
+        "name": "Free mem Rpi",
+        "group": "2f55fb43.ddeedc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Free mem Rpi",
+        "label": "MB",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "300",
+        "colors": [
+            "#ff2600",
+            "#77bb41",
+            "#00c7fc"
+        ],
+        "seg1": "30",
+        "seg2": "60",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a2bfe009.ced5a8",
+        "type": "ui_chart",
+        "z": "dfb2925a.74b8c",
+        "name": "CPU Chart",
+        "group": "cf00cc42.7f128",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "1",
+        "removeOlderPoints": "1000",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 530,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    }
+]
