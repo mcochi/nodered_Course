@@ -25,7 +25,14 @@
         "type": "tab",
         "label": "IntegraciónTablas",
         "disabled": false,
-        "info": "CREATE TABLE TDS2(iniciativaid int NOT NULL AUTO_INCREMENT, Proyecto VARCHAR(255), Nivel1 VARCHAR(255), Nivel2 VARCHAR(255), Nivel3 VARCHAR(255), Nivel4 VARCHAR(255), Inversionid VARCHAR(255), Subvencionid VARCHAR(255), PRIMARY KEY(iniciativaid));\n\nCREATE TABLE inversion(palanca VARCHAR(255), componente VARCHAR(255), inversionesid VARCHAR(255) NOT NULL, estado VARCHAR(255), PRIMARY KEY(inversionesid));"
+        "info": "CREATE TABLE TDS2(iniciativaid int NOT NULL AUTO_INCREMENT, Proyecto VARCHAR(255), Nivel1 VARCHAR(255), Nivel2 VARCHAR(255), Nivel3 VARCHAR(255), Nivel4 VARCHAR(255), Inversionid VARCHAR(255), Subvencionid VARCHAR(255), PRIMARY KEY(iniciativaid));\n\nCREATE TABLE inversion2(palanca VARCHAR(255), componente VARCHAR(255), inversionesid VARCHAR(255) NOT NULL, estado VARCHAR(255), descripcion TEXT, PRIMARY KEY(inversionesid));"
+    },
+    {
+        "id": "e1613ffa.b5797",
+        "type": "tab",
+        "label": "Dasboard Linkar Proyectos con Inversion",
+        "disabled": false,
+        "info": ""
     },
     {
         "id": "13b9b9f3.fd5f5e",
@@ -189,6 +196,24 @@
         "db": "nodered",
         "tz": "",
         "charset": "UTF8"
+    },
+    {
+        "id": "70ca3f17.95d0a8",
+        "type": "ui_tab",
+        "name": "Integración",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "5d34861e.08708",
+        "type": "ui_group",
+        "name": "Integración",
+        "tab": "70ca3f17.95d0a8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
     },
     {
         "id": "af22b399.12614",
@@ -950,7 +975,7 @@
         "type": "function",
         "z": "6a826daa.e61434",
         "name": "",
-        "func": "palanca = msg.payload['Palanca']\ncomponente = msg.payload['Componente']\ninversionid = msg.payload['Inversiones']\nestado = msg.payload['Estado']\nmsg.payload=[palanca, componente, inversionid, estado];\nmsg.topic=\"INSERT INTO inversion (`palanca`,`componente`, `inversionesid`, `estado`) VALUES (?,?,?,?);\"\nreturn msg;",
+        "func": "palanca = msg.payload['Palanca']\ncomponente = msg.payload['Componente']\ninversionid = msg.payload['Inversiones']\nestado = msg.payload['Estado']\ndescripcion = msg.payload['Descripción2']\nmsg.payload=[palanca, componente, inversionid, estado,descripcion];\nmsg.topic=\"INSERT INTO inversion2 (`palanca`,`componente`, `inversionesid`, `estado`,`descripcion`) VALUES (?,?,?,?,?);\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1033,7 +1058,7 @@
         "type": "function",
         "z": "6a826daa.e61434",
         "name": "",
-        "func": "msg.topic=\"DELETE from inversion;\"\nreturn msg;",
+        "func": "msg.topic=\"DELETE from inversion2;\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1059,6 +1084,148 @@
             [
                 "d04bcca7.1a0d28"
             ]
+        ]
+    },
+    {
+        "id": "1b7257d3.cf98d8",
+        "type": "inject",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "1add812a.92e8e7"
+            ]
+        ]
+    },
+    {
+        "id": "1add812a.92e8e7",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "func": "msg.topic=\"SELECT Nivel4 FROM TDS2\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 120,
+        "wires": [
+            [
+                "27a9b4b6.8bfff4"
+            ]
+        ]
+    },
+    {
+        "id": "27a9b4b6.8bfff4",
+        "type": "mysql",
+        "z": "e1613ffa.b5797",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 440,
+        "y": 120,
+        "wires": [
+            [
+                "c40cd07c.1565e"
+            ]
+        ]
+    },
+    {
+        "id": "c40cd07c.1565e",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "func": "Array.prototype.unique = function() {\n  return this.filter(function (value, index, self) { \n    return self.indexOf(value) === index;\n  });\n}\n\nmsg.options = []\nfor (var i = 0; i< msg.payload.length; i++){\n    msg.options.push(msg.payload[i]['Nivel4'].replace('\"',\"'\"))\n}\nmsg.options = msg.options.unique()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 120,
+        "wires": [
+            [
+                "8e9fa4a7.f2abe8"
+            ]
+        ]
+    },
+    {
+        "id": "8e9fa4a7.f2abe8",
+        "type": "ui_dropdown",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "label": "Integración",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "5d34861e.08708",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "9c71ed99.a25198",
+                "e5790ef9.6891a"
+            ]
+        ]
+    },
+    {
+        "id": "9c71ed99.a25198",
+        "type": "debug",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e5790ef9.6891a",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "func": "msg.topic=\"SELECT Nivel4 FROM TDS2\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            []
         ]
     }
 ]
