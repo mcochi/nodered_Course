@@ -21,6 +21,13 @@
         "info": ""
     },
     {
+        "id": "6a826daa.e61434",
+        "type": "tab",
+        "label": "IntegraciónTablas",
+        "disabled": false,
+        "info": "CREATE TABLE TDS2(iniciativaid int NOT NULL AUTO_INCREMENT, Proyecto VARCHAR(255), Nivel1 VARCHAR(255), Nivel2 VARCHAR(255), Nivel3 VARCHAR(255), Nivel4 VARCHAR(255), Inversionid VARCHAR(255), Subvencionid VARCHAR(255), PRIMARY KEY(iniciativaid));\n\nCREATE TABLE inversion(palanca VARCHAR(255), componente VARCHAR(255), inversionesid VARCHAR(255) NOT NULL, estado VARCHAR(255), PRIMARY KEY(inversionesid));"
+    },
+    {
         "id": "13b9b9f3.fd5f5e",
         "type": "mqtt-broker",
         "name": "",
@@ -172,6 +179,16 @@
         "disp": true,
         "width": "6",
         "collapse": false
+    },
+    {
+        "id": "ec3b4b75.693ef",
+        "type": "MySQLdatabase",
+        "name": "rpi34",
+        "host": "10.6.0.1",
+        "port": "3306",
+        "db": "nodered",
+        "tz": "",
+        "charset": "UTF8"
     },
     {
         "id": "af22b399.12614",
@@ -737,5 +754,311 @@
         "x": 1010,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "73e4e16.4d9742",
+        "type": "inject",
+        "z": "6a826daa.e61434",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "43200",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "c6c21b5e.15ec48"
+            ]
+        ]
+    },
+    {
+        "id": "90ed51dc.dcc71",
+        "type": "csv",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "sep": ";",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [
+                "6aff5e5.1045ba"
+            ]
+        ]
+    },
+    {
+        "id": "88f5edcd.d26628",
+        "type": "file in",
+        "z": "6a826daa.e61434",
+        "name": "TDS",
+        "filename": "/home/pi/integrados/tds.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "90ed51dc.dcc71"
+            ]
+        ]
+    },
+    {
+        "id": "6aff5e5.1045ba",
+        "type": "function",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "func": "proyecto = msg.payload.PROYECTO\nnivel1 = msg.payload['Nivel 1']\nnivel2 = msg.payload['Nivel 2']\nnivel3 = msg.payload['Nivel 3']\nnivel4 = msg.payload['Nivel 4']\ninversion = msg.payload['Inversión']\nsubvencion = msg.payload['Subvención/ayuda']\nmsg.payload=[proyecto, nivel1, nivel2, nivel3, nivel4, inversion, subvencion];\nmsg.topic=\"INSERT INTO TDS2 (`Proyecto`,`Nivel1`,`Nivel2`,`Nivel3`,`Nivel4`,`Inversionid`,`Subvencionid`) VALUES (?,?,?,?,?,?,?);\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 160,
+        "wires": [
+            [
+                "e6a51dca.917058"
+            ]
+        ]
+    },
+    {
+        "id": "631e7b60.f8d1a4",
+        "type": "debug",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e6a51dca.917058",
+        "type": "mysql",
+        "z": "6a826daa.e61434",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 740,
+        "y": 160,
+        "wires": [
+            [
+                "631e7b60.f8d1a4"
+            ]
+        ]
+    },
+    {
+        "id": "e9e998d9.44ecc8",
+        "type": "inject",
+        "z": "6a826daa.e61434",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "43200",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "22810b20.000284"
+            ]
+        ]
+    },
+    {
+        "id": "177f0694.40fd99",
+        "type": "csv",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "sep": ";",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "c586d7d.3efb1a8"
+            ]
+        ]
+    },
+    {
+        "id": "d04bcca7.1a0d28",
+        "type": "file in",
+        "z": "6a826daa.e61434",
+        "name": "TDS",
+        "filename": "/home/pi/integrados/inversiones.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "177f0694.40fd99"
+            ]
+        ]
+    },
+    {
+        "id": "c586d7d.3efb1a8",
+        "type": "function",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "func": "palanca = msg.payload['Palanca']\ncomponente = msg.payload['Componente']\ninversionid = msg.payload['Inversiones']\nestado = msg.payload['Estado']\nmsg.payload=[palanca, componente, inversionid, estado];\nmsg.topic=\"INSERT INTO inversion (`palanca`,`componente`, `inversionesid`, `estado`) VALUES (?,?,?,?);\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 300,
+        "wires": [
+            [
+                "c676e18c.988d38"
+            ]
+        ]
+    },
+    {
+        "id": "7f3e40ba.bb4c88",
+        "type": "debug",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c676e18c.988d38",
+        "type": "mysql",
+        "z": "6a826daa.e61434",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 700,
+        "y": 300,
+        "wires": [
+            [
+                "7f3e40ba.bb4c88"
+            ]
+        ]
+    },
+    {
+        "id": "c6c21b5e.15ec48",
+        "type": "function",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "func": "msg.topic=\"DELETE from TDS2;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "4d4b61fe.6d1388"
+            ]
+        ]
+    },
+    {
+        "id": "4d4b61fe.6d1388",
+        "type": "mysql",
+        "z": "6a826daa.e61434",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "88f5edcd.d26628"
+            ]
+        ]
+    },
+    {
+        "id": "22810b20.000284",
+        "type": "function",
+        "z": "6a826daa.e61434",
+        "name": "",
+        "func": "msg.topic=\"DELETE from inversion;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "84acf2e0.a0fbf8"
+            ]
+        ]
+    },
+    {
+        "id": "84acf2e0.a0fbf8",
+        "type": "mysql",
+        "z": "6a826daa.e61434",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "d04bcca7.1a0d28"
+            ]
+        ]
     }
 ]
