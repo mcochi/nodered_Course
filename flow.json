@@ -1189,7 +1189,6 @@
         "y": 200,
         "wires": [
             [
-                "9c71ed99.a25198",
                 "e5790ef9.6891a"
             ]
         ]
@@ -1207,8 +1206,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 530,
-        "y": 180,
+        "x": 630,
+        "y": 240,
         "wires": []
     },
     {
@@ -1216,16 +1215,32 @@
         "type": "function",
         "z": "e1613ffa.b5797",
         "name": "",
-        "func": "msg.topic=\"SELECT Nivel4 FROM TDS2\"\nreturn msg;",
+        "func": "msg.auxiliar = msg.payload\nmsg.topic='SELECT Inversionid FROM TDS2 WHERE Nivel4 = \"1.1.1.2. Diseño y desarrollo de una red de infraestructuras de telecomunicación\";'\nmsg.topic = msg.topic.concat(msg.auxiliar)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 220,
+        "x": 300,
+        "y": 260,
         "wires": [
-            []
+            [
+                "763d1fd0.21134"
+            ]
+        ]
+    },
+    {
+        "id": "763d1fd0.21134",
+        "type": "mysql",
+        "z": "e1613ffa.b5797",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "9c71ed99.a25198"
+            ]
         ]
     }
 ]
