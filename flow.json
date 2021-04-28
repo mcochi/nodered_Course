@@ -35,6 +35,13 @@
         "info": ""
     },
     {
+        "id": "43f414ab.b39154",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "13b9b9f3.fd5f5e",
         "type": "mqtt-broker",
         "name": "",
@@ -212,7 +219,44 @@
         "tab": "70ca3f17.95d0a8",
         "order": 1,
         "disp": true,
+        "width": 7,
+        "collapse": false
+    },
+    {
+        "id": "2e3489c1.0dd1c6",
+        "type": "ui_group",
+        "name": "texto",
+        "tab": "70ca3f17.95d0a8",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false
+    },
+    {
+        "id": "3c5da821.6d5638",
+        "type": "ui_group",
+        "name": "Two dimension Array",
+        "tab": "f9ac9e91.20e588",
+        "order": 2,
+        "disp": true,
         "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "f9ac9e91.20e588",
+        "type": "ui_tab",
+        "name": "Table Examples",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "68d69987.798d88",
+        "type": "ui_group",
+        "name": "tabla",
+        "tab": "70ca3f17.95d0a8",
+        "order": 3,
+        "disp": true,
+        "width": 9,
         "collapse": false
     },
     {
@@ -460,7 +504,7 @@
         "z": "dfb2925a.74b8c",
         "name": "TemperaturaRpi",
         "group": "2f55fb43.ddeedc",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "gtype": "gage",
@@ -486,7 +530,7 @@
         "z": "dfb2925a.74b8c",
         "name": "Cpu Raspberry",
         "group": "2f55fb43.ddeedc",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
         "gtype": "gage",
@@ -512,7 +556,7 @@
         "z": "dfb2925a.74b8c",
         "name": "Temperatura Chart",
         "group": "cf00cc42.7f128",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "label": "chart",
@@ -555,7 +599,7 @@
         "z": "dfb2925a.74b8c",
         "name": "Free mem Rpi",
         "group": "2f55fb43.ddeedc",
-        "order": 0,
+        "order": 3,
         "width": 0,
         "height": 0,
         "gtype": "gage",
@@ -581,7 +625,7 @@
         "z": "dfb2925a.74b8c",
         "name": "CPU Chart",
         "group": "cf00cc42.7f128",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
         "label": "chart",
@@ -626,7 +670,7 @@
         "mode": "timed",
         "name": "Comprueba Ping a Estanco",
         "host": "10.6.0.4",
-        "timer": "2",
+        "timer": "500",
         "inputs": 0,
         "x": 170,
         "y": 160,
@@ -1100,14 +1144,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "3600",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
+        "x": 130,
         "y": 120,
         "wires": [
             [
@@ -1176,9 +1220,9 @@
         "tooltip": "",
         "place": "Select option",
         "group": "5d34861e.08708",
-        "order": 0,
-        "width": 0,
-        "height": 0,
+        "order": 1,
+        "width": 7,
+        "height": 1,
         "passthru": true,
         "multiple": false,
         "options": [],
@@ -1206,8 +1250,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
-        "y": 240,
+        "x": 690,
+        "y": 280,
         "wires": []
     },
     {
@@ -1215,14 +1259,14 @@
         "type": "function",
         "z": "e1613ffa.b5797",
         "name": "",
-        "func": "msg.auxiliar = msg.payload\nmsg.topic='SELECT Inversionid FROM TDS2 WHERE Nivel4 = \"1.1.1.2. Diseño y desarrollo de una red de infraestructuras de telecomunicación\";'\nmsg.topic = msg.topic.concat(msg.auxiliar)\nreturn msg;",
+        "func": "msg.auxiliar = '\"' + msg.payload + '\";'\nmsg.topic='SELECT Inversionid FROM TDS2 WHERE Nivel4 = '\nmsg.topic = msg.topic.concat(msg.auxiliar)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 260,
+        "x": 340,
+        "y": 200,
         "wires": [
             [
                 "763d1fd0.21134"
@@ -1235,11 +1279,231 @@
         "z": "e1613ffa.b5797",
         "mydb": "ec3b4b75.693ef",
         "name": "TDSTable",
-        "x": 460,
-        "y": 260,
+        "x": 500,
+        "y": 200,
         "wires": [
             [
-                "9c71ed99.a25198"
+                "c7612911.04f8b8"
+            ]
+        ]
+    },
+    {
+        "id": "c7612911.04f8b8",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "func": "Array.prototype.unique = function() {\n  return this.filter(function (value, index, self) { \n    return self.indexOf(value) === index;\n  });\n}\n\nmsg.options = []\nfor (var i = 0; i< msg.payload.length; i++){\n    msg.options.push(msg.payload[i]['Inversionid'].replace('\"',\"'\"))\n}\nmsg.options = msg.options.unique()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "6e18ba13.967f5c"
+            ]
+        ]
+    },
+    {
+        "id": "6e18ba13.967f5c",
+        "type": "ui_dropdown",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "5d34861e.08708",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "ea7ee04a.38cd4"
+            ]
+        ]
+    },
+    {
+        "id": "ea7ee04a.38cd4",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "",
+        "func": "msg.auxiliar = '\"' + msg.payload + '\";'\nmsg.topic='SELECT descripcion, estado FROM inversion2 WHERE inversionesid = '\nmsg.topic = msg.topic.concat(msg.auxiliar)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "e54a48fc.594a3"
+            ]
+        ]
+    },
+    {
+        "id": "e54a48fc.594a3",
+        "type": "mysql",
+        "z": "e1613ffa.b5797",
+        "mydb": "ec3b4b75.693ef",
+        "name": "TDSTable",
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "9c71ed99.a25198",
+                "123f36dd.e8edb9",
+                "f390bc4c.7c3928"
+            ]
+        ]
+    },
+    {
+        "id": "123f36dd.e8edb9",
+        "type": "ui_text",
+        "z": "e1613ffa.b5797",
+        "d": true,
+        "group": "2e3489c1.0dd1c6",
+        "order": 1,
+        "width": 10,
+        "height": 4,
+        "name": "",
+        "label": "Descripcion y estado",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 820,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1b61c07f.7d06f8",
+        "type": "inject",
+        "z": "43f414ab.b39154",
+        "name": "Go",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "1",
+        "payloadType": "str",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "a30ba039.4650a8"
+            ]
+        ]
+    },
+    {
+        "id": "a30ba039.4650a8",
+        "type": "function",
+        "z": "43f414ab.b39154",
+        "name": "build array (2)",
+        "func": "var arr =[[\"Paul\",\"Doe\",24],[\"Greg\",\"Jones\",31],[\"Able\",\"Smith\",29]];\nmsg.payload = arr;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "c9727c65.303f"
+            ]
+        ]
+    },
+    {
+        "id": "7fa8d335.150f84",
+        "type": "debug",
+        "z": "43f414ab.b39154",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 810,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c9727c65.303f",
+        "type": "ui_template",
+        "z": "43f414ab.b39154",
+        "group": "3c5da821.6d5638",
+        "name": "Two dimension array table",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "format": "<table id=\"table\" border=\"1\">\n <tr>\n <th>First Name</th> \n <th>Last Name</th>\n <th>Age</th>\n </tr>\n <tbody>\n <tr ng-repeat=\"row in msg.payload\">\n <td ng-repeat=\"item in row\" >{{item}}</td>\n </tr>\n </tbody>\n</table>\n\n",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "7fa8d335.150f84"
+            ]
+        ]
+    },
+    {
+        "id": "ce57a9cb.d4bdf",
+        "type": "ui_template",
+        "z": "e1613ffa.b5797",
+        "group": "68d69987.798d88",
+        "name": "Two dimension array table",
+        "order": 1,
+        "width": 9,
+        "height": 6,
+        "format": "<table id=\"table\" border=\"1\">\n <tr>\n <th>descripcion</th> \n <th>estado</th>\n </tr>\n <tbody>\n <tr ng-repeat=\"row in msg.payload\">\n <td ng-repeat=\"item in row\" >{{item}}</td>\n </tr>\n </tbody>\n</table>\n\n",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 460,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f390bc4c.7c3928",
+        "type": "function",
+        "z": "e1613ffa.b5797",
+        "name": "build array (2)",
+        "func": "var arr =[[msg.payload[0]['descripcion'],msg.payload[0]['estado']]];\nmsg.payload = arr;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 400,
+        "wires": [
+            [
+                "ce57a9cb.d4bdf"
             ]
         ]
     }
