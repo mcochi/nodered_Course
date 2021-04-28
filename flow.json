@@ -14,6 +14,13 @@
         "info": ""
     },
     {
+        "id": "a994bcf4.bdd358",
+        "type": "tab",
+        "label": "ComprobarVPN",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "13b9b9f3.fd5f5e",
         "type": "mqtt-broker",
         "name": "",
@@ -475,9 +482,9 @@
         "dot": false,
         "ymin": "",
         "ymax": "",
-        "removeOlder": "1",
-        "removeOlderPoints": "1000",
-        "removeOlderUnit": "3600",
+        "removeOlder": "20",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -544,9 +551,9 @@
         "dot": false,
         "ymin": "",
         "ymax": "",
-        "removeOlder": "1",
-        "removeOlderPoints": "1000",
-        "removeOlderUnit": "3600",
+        "removeOlder": "5",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -568,5 +575,167 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "bc251473.76c35",
+        "type": "ping",
+        "z": "a994bcf4.bdd358",
+        "protocol": "IPv4",
+        "mode": "timed",
+        "name": "Comprueba Ping a Estanco",
+        "host": "10.6.0.4",
+        "timer": "2",
+        "inputs": 0,
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "c597cef5.d9ff1"
+            ]
+        ]
+    },
+    {
+        "id": "c597cef5.d9ff1",
+        "type": "switch",
+        "z": "a994bcf4.bdd358",
+        "name": "pingFail",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "55124419.c44da4"
+            ],
+            [
+                "a996c043.8ad8"
+            ]
+        ]
+    },
+    {
+        "id": "55124419.c44da4",
+        "type": "change",
+        "z": "a994bcf4.bdd358",
+        "name": "failping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "estado",
+                "pt": "msg",
+                "to": "VPNnoOK",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Error VPN",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Revisar la conexión con el Servidor del Estanco",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "3e757aa3.b7137e"
+            ]
+        ]
+    },
+    {
+        "id": "a996c043.8ad8",
+        "type": "change",
+        "z": "a994bcf4.bdd358",
+        "name": "pingPerfecto",
+        "rules": [
+            {
+                "t": "set",
+                "p": "estado",
+                "pt": "msg",
+                "to": "VPNok",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "VPN Funcionando",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "No hay ningún problema con la conexión con la rpi de estanco",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "3e757aa3.b7137e"
+            ]
+        ]
+    },
+    {
+        "id": "3e757aa3.b7137e",
+        "type": "rbe",
+        "z": "a994bcf4.bdd358",
+        "name": "BloqueaSinoCambiaEstado",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "estado",
+        "x": 770,
+        "y": 200,
+        "wires": [
+            [
+                "3dfc3199.f0ac2e"
+            ]
+        ]
+    },
+    {
+        "id": "3dfc3199.f0ac2e",
+        "type": "e-mail",
+        "z": "a994bcf4.bdd358",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "coro.dri@hotmail.com",
+        "dname": "emailCorodri",
+        "x": 1010,
+        "y": 200,
+        "wires": []
     }
 ]
