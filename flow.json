@@ -266,7 +266,7 @@
         "command": "vcgencmd measure_temp",
         "addpay": false,
         "append": "",
-        "useSpawn": "",
+        "useSpawn": "false",
         "timer": "",
         "name": "RPi Temp.",
         "x": 290,
@@ -365,7 +365,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "40",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -670,7 +670,7 @@
         "mode": "timed",
         "name": "Comprueba Ping a Estanco",
         "host": "10.6.0.4",
-        "timer": "500",
+        "timer": "2",
         "inputs": 0,
         "x": 170,
         "y": 160,
@@ -742,8 +742,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 160,
+        "x": 520,
+        "y": 140,
         "wires": [
             [
                 "3e757aa3.b7137e"
@@ -820,8 +820,8 @@
         "tls": true,
         "name": "coro.dri@hotmail.com",
         "dname": "emailCorodri",
-        "x": 1010,
-        "y": 200,
+        "x": 990,
+        "y": 180,
         "wires": []
     },
     {
@@ -1506,5 +1506,132 @@
                 "ce57a9cb.d4bdf"
             ]
         ]
+    },
+    {
+        "id": "4a5eb9c7.435cc8",
+        "type": "exec",
+        "z": "a994bcf4.bdd358",
+        "command": "curl icanhazip.com",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "IPPública",
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "36edef64.f5244"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "442eccab.eb3f04",
+        "type": "inject",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "4a5eb9c7.435cc8"
+            ]
+        ]
+    },
+    {
+        "id": "e26d358b.0e4d08",
+        "type": "debug",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "36edef64.f5244",
+        "type": "change",
+        "z": "a994bcf4.bdd358",
+        "name": "failping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Nueva IP Pública",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "4814e0bf.bc6598"
+            ]
+        ]
+    },
+    {
+        "id": "4814e0bf.bc6598",
+        "type": "rbe",
+        "z": "a994bcf4.bdd358",
+        "name": "BloqueaSinoCambiaEstado",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "x": 780,
+        "y": 340,
+        "wires": [
+            [
+                "e26d358b.0e4d08",
+                "74762424.295174"
+            ]
+        ]
+    },
+    {
+        "id": "74762424.295174",
+        "type": "e-mail",
+        "z": "a994bcf4.bdd358",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "coro.dri@hotmail.com",
+        "dname": "emailCorodri",
+        "x": 1070,
+        "y": 360,
+        "wires": []
     }
 ]
