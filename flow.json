@@ -35,13 +35,6 @@
         "info": ""
     },
     {
-        "id": "43f414ab.b39154",
-        "type": "tab",
-        "label": "Flow 2",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "13b9b9f3.fd5f5e",
         "type": "mqtt-broker",
         "name": "",
@@ -365,7 +358,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "40",
+        "repeat": "4",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -1385,90 +1378,6 @@
         "wires": []
     },
     {
-        "id": "1b61c07f.7d06f8",
-        "type": "inject",
-        "z": "43f414ab.b39154",
-        "name": "Go",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "",
-        "topic": "",
-        "payload": "1",
-        "payloadType": "str",
-        "x": 110,
-        "y": 160,
-        "wires": [
-            [
-                "a30ba039.4650a8"
-            ]
-        ]
-    },
-    {
-        "id": "a30ba039.4650a8",
-        "type": "function",
-        "z": "43f414ab.b39154",
-        "name": "build array (2)",
-        "func": "var arr =[[\"Paul\",\"Doe\",24],[\"Greg\",\"Jones\",31],[\"Able\",\"Smith\",29]];\nmsg.payload = arr;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 280,
-        "y": 160,
-        "wires": [
-            [
-                "c9727c65.303f"
-            ]
-        ]
-    },
-    {
-        "id": "7fa8d335.150f84",
-        "type": "debug",
-        "z": "43f414ab.b39154",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 810,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "c9727c65.303f",
-        "type": "ui_template",
-        "z": "43f414ab.b39154",
-        "group": "3c5da821.6d5638",
-        "name": "Two dimension array table",
-        "order": 1,
-        "width": "6",
-        "height": "6",
-        "format": "<table id=\"table\" border=\"1\">\n <tr>\n <th>First Name</th> \n <th>Last Name</th>\n <th>Age</th>\n </tr>\n <tbody>\n <tr ng-repeat=\"row in msg.payload\">\n <td ng-repeat=\"item in row\" >{{item}}</td>\n </tr>\n </tbody>\n</table>\n\n",
-        "storeOutMessages": false,
-        "fwdInMessages": true,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "x": 500,
-        "y": 160,
-        "wires": [
-            [
-                "7fa8d335.150f84"
-            ]
-        ]
-    },
-    {
         "id": "ce57a9cb.d4bdf",
         "type": "ui_template",
         "z": "e1613ffa.b5797",
@@ -1565,11 +1474,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1030,
+        "x": 1010,
         "y": 280,
         "wires": []
     },
@@ -1592,8 +1501,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 520,
-        "y": 340,
+        "x": 500,
+        "y": 360,
         "wires": [
             [
                 "4814e0bf.bc6598"
@@ -1611,8 +1520,8 @@
         "inout": "out",
         "septopics": true,
         "property": "payload",
-        "x": 780,
-        "y": 340,
+        "x": 740,
+        "y": 360,
         "wires": [
             [
                 "e26d358b.0e4d08",
@@ -1628,10 +1537,427 @@
         "port": "465",
         "secure": true,
         "tls": true,
-        "name": "coro.dri@hotmail.com",
+        "name": "rmcochi@gmail.com",
         "dname": "emailCorodri",
         "x": 1070,
         "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8c9c54df.f91d78",
+        "type": "e-mail in",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "imap.gmail.com",
+        "useSSL": true,
+        "autotls": "never",
+        "port": "993",
+        "box": "INBOX",
+        "disposition": "Read",
+        "criteria": "UNSEEN",
+        "repeat": "30",
+        "fetch": "trigger",
+        "inputs": 1,
+        "x": 70,
+        "y": 540,
+        "wires": [
+            [
+                "8c1db2c1.476a48"
+            ]
+        ]
+    },
+    {
+        "id": "8c1db2c1.476a48",
+        "type": "switch",
+        "z": "a994bcf4.bdd358",
+        "name": "Coincide Asunto",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Nueva IP Pública",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 240,
+        "y": 540,
+        "wires": [
+            [
+                "56a08457.81d924"
+            ]
+        ]
+    },
+    {
+        "id": "38f0f3df.840c2c",
+        "type": "file in",
+        "z": "a994bcf4.bdd358",
+        "name": "UploadFileWireguardConf",
+        "filename": "/etc/wireguard/pi_hole.conf",
+        "format": "lines",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "utf8",
+        "x": 910,
+        "y": 520,
+        "wires": [
+            [
+                "c78c927f.3c04b8"
+            ]
+        ]
+    },
+    {
+        "id": "9f9e8980.e29b78",
+        "type": "file",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "filename": "/etc/wireguard/pi_hole.conf",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 860,
+        "y": 700,
+        "wires": [
+            [
+                "de9aed4a.328c08"
+            ]
+        ]
+    },
+    {
+        "id": "c78c927f.3c04b8",
+        "type": "switch",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Endpoint",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "\"\"",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 3,
+        "x": 130,
+        "y": 700,
+        "wires": [
+            [
+                "ec14d191.0b88a8"
+            ],
+            [],
+            [
+                "34957057.e166d"
+            ]
+        ]
+    },
+    {
+        "id": "29a9cf5.92376b",
+        "type": "function",
+        "z": "a994bcf4.bdd358",
+        "name": "Actualizar IP pública",
+        "func": "msg.payload = \"Endpoint = \" + msg.topic.replace(/(\\r\\n|\\n|\\r)/gm, \"\") +\":51820\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 680,
+        "wires": [
+            [
+                "9f9e8980.e29b78"
+            ]
+        ]
+    },
+    {
+        "id": "56a08457.81d924",
+        "type": "function",
+        "z": "a994bcf4.bdd358",
+        "name": "GuardarIpPública",
+        "func": "msg.topic = msg.payload\n/*msg.topic = \"10.11.12.13\"*/\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 540,
+        "wires": [
+            [
+                "2fbb1cbd.a8e9fc"
+            ]
+        ]
+    },
+    {
+        "id": "34957057.e166d",
+        "type": "function",
+        "z": "a994bcf4.bdd358",
+        "name": "Actualizar IP pública",
+        "func": "msg.payload = msg.payload.replace(/(\\r\\n|\\n|\\r)/gm, \"\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 740,
+        "wires": [
+            [
+                "9f9e8980.e29b78"
+            ]
+        ]
+    },
+    {
+        "id": "2fbb1cbd.a8e9fc",
+        "type": "exec",
+        "z": "a994bcf4.bdd358",
+        "command": "wg-quick down pi_hole",
+        "addpay": "resultado",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "TirarInterfazVPN",
+        "x": 660,
+        "y": 520,
+        "wires": [
+            [
+                "38f0f3df.840c2c"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "10ec73d0.667744",
+        "type": "exec",
+        "z": "a994bcf4.bdd358",
+        "command": "wg-quick up pi_hole",
+        "addpay": "resultado",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "LevantarInterfazVPN",
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "5d092aa0.0bf2f4"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5d092aa0.0bf2f4",
+        "type": "debug",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "fc026538.0b14c8",
+        "type": "inject",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "8c9c54df.f91d78"
+            ]
+        ]
+    },
+    {
+        "id": "ec14d191.0b88a8",
+        "type": "file",
+        "z": "a994bcf4.bdd358",
+        "name": "DeleteFicheroConfiguracion",
+        "filename": "/etc/wireguard/pi_hole.conf",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "delete",
+        "encoding": "none",
+        "x": 360,
+        "y": 680,
+        "wires": [
+            [
+                "29a9cf5.92376b"
+            ]
+        ]
+    },
+    {
+        "id": "de9aed4a.328c08",
+        "type": "switch",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Endpoint",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 1,
+        "x": 1070,
+        "y": 700,
+        "wires": [
+            [
+                "10ec73d0.667744"
+            ]
+        ]
+    },
+    {
+        "id": "7a21ce2d.5b28c8",
+        "type": "exec",
+        "z": "a994bcf4.bdd358",
+        "command": "curl icanhazip.com",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "IPPública",
+        "x": 300,
+        "y": 980,
+        "wires": [
+            [
+                "667e4b28.fbf0d4"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f2fa71ed.a8503",
+        "type": "inject",
+        "z": "a994bcf4.bdd358",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 980,
+        "wires": [
+            [
+                "7a21ce2d.5b28c8"
+            ]
+        ]
+    },
+    {
+        "id": "667e4b28.fbf0d4",
+        "type": "change",
+        "z": "a994bcf4.bdd358",
+        "name": "failping",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Nueva IP Pública_rpiestanco",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 1000,
+        "wires": [
+            [
+                "a35348da.931478"
+            ]
+        ]
+    },
+    {
+        "id": "a35348da.931478",
+        "type": "rbe",
+        "z": "a994bcf4.bdd358",
+        "name": "BloqueaSinoCambiaEstado",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "x": 740,
+        "y": 1000,
+        "wires": [
+            [
+                "49227a97.8758e4"
+            ]
+        ]
+    },
+    {
+        "id": "49227a97.8758e4",
+        "type": "e-mail",
+        "z": "a994bcf4.bdd358",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "rmcochi@gmail.com",
+        "dname": "emailCorodri",
+        "x": 1070,
+        "y": 1000,
         "wires": []
     }
 ]
