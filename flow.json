@@ -7,6 +7,13 @@
         "info": ""
     },
     {
+        "id": "92c0a218.e77db8",
+        "type": "tab",
+        "label": "DatosRpiSmooth",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "dfb2925a.74b8c",
         "type": "tab",
         "label": "DashboardRpi",
@@ -253,6 +260,120 @@
         "collapse": false
     },
     {
+        "id": "d8fba480.ffaf48",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "6288fa93.4df404",
+        "type": "ui_group",
+        "name": "ejercicio01",
+        "tab": "d8fba480.ffaf48",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "21c33f61.702ca",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "af22b399.12614",
         "type": "exec",
         "z": "9c1a3350.4efa6",
@@ -336,6 +457,9 @@
         "func": "str = msg.payload\nmsg.payload = parseInt(str.substring(0,str.length - 1));\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 460,
         "y": 360,
         "wires": [
@@ -663,7 +787,7 @@
         "mode": "timed",
         "name": "Comprueba Ping a Estanco",
         "host": "10.6.0.4",
-        "timer": "2",
+        "timer": "20",
         "inputs": 0,
         "x": 170,
         "y": 160,
@@ -911,7 +1035,7 @@
         "type": "debug",
         "z": "6a826daa.e61434",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1031,7 +1155,7 @@
         "type": "debug",
         "z": "6a826daa.e61434",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1235,7 +1359,7 @@
         "type": "debug",
         "z": "e1613ffa.b5797",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1470,7 +1594,7 @@
         "type": "debug",
         "z": "a994bcf4.bdd358",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1525,7 +1649,8 @@
         "wires": [
             [
                 "e26d358b.0e4d08",
-                "74762424.295174"
+                "74762424.295174",
+                "8f06d4f.b740928"
             ]
         ]
     },
@@ -1538,8 +1663,8 @@
         "secure": true,
         "tls": true,
         "name": "rmcochi@gmail.com",
-        "dname": "emailCorodri",
-        "x": 1070,
+        "dname": "emailrmcochi",
+        "x": 1080,
         "y": 360,
         "wires": []
     },
@@ -1560,7 +1685,7 @@
         "fetch": "trigger",
         "inputs": 1,
         "x": 70,
-        "y": 540,
+        "y": 560,
         "wires": [
             [
                 "8c1db2c1.476a48"
@@ -1585,7 +1710,7 @@
         "repair": false,
         "outputs": 1,
         "x": 240,
-        "y": 540,
+        "y": 560,
         "wires": [
             [
                 "56a08457.81d924"
@@ -1603,7 +1728,7 @@
         "sendError": false,
         "encoding": "utf8",
         "x": 910,
-        "y": 520,
+        "y": 540,
         "wires": [
             [
                 "c78c927f.3c04b8"
@@ -1621,7 +1746,7 @@
         "overwriteFile": "false",
         "encoding": "utf8",
         "x": 860,
-        "y": 700,
+        "y": 720,
         "wires": [
             [
                 "de9aed4a.328c08"
@@ -1654,7 +1779,7 @@
         "repair": true,
         "outputs": 3,
         "x": 130,
-        "y": 700,
+        "y": 720,
         "wires": [
             [
                 "ec14d191.0b88a8"
@@ -1677,7 +1802,7 @@
         "finalize": "",
         "libs": [],
         "x": 600,
-        "y": 680,
+        "y": 700,
         "wires": [
             [
                 "9f9e8980.e29b78"
@@ -1696,7 +1821,7 @@
         "finalize": "",
         "libs": [],
         "x": 450,
-        "y": 540,
+        "y": 560,
         "wires": [
             [
                 "2fbb1cbd.a8e9fc"
@@ -1715,7 +1840,7 @@
         "finalize": "",
         "libs": [],
         "x": 460,
-        "y": 740,
+        "y": 760,
         "wires": [
             [
                 "9f9e8980.e29b78"
@@ -1733,7 +1858,7 @@
         "timer": "",
         "name": "TirarInterfazVPN",
         "x": 660,
-        "y": 520,
+        "y": 540,
         "wires": [
             [
                 "38f0f3df.840c2c"
@@ -1753,7 +1878,7 @@
         "timer": "",
         "name": "LevantarInterfazVPN",
         "x": 200,
-        "y": 840,
+        "y": 860,
         "wires": [
             [
                 "5d092aa0.0bf2f4"
@@ -1767,7 +1892,7 @@
         "type": "debug",
         "z": "a994bcf4.bdd358",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1776,7 +1901,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 430,
-        "y": 840,
+        "y": 860,
         "wires": []
     },
     {
@@ -1801,7 +1926,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 90,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "8c9c54df.f91d78"
@@ -1819,7 +1944,7 @@
         "overwriteFile": "delete",
         "encoding": "none",
         "x": 360,
-        "y": 680,
+        "y": 700,
         "wires": [
             [
                 "29a9cf5.92376b"
@@ -1844,7 +1969,7 @@
         "repair": true,
         "outputs": 1,
         "x": 1070,
-        "y": 700,
+        "y": 720,
         "wires": [
             [
                 "10ec73d0.667744"
@@ -1852,29 +1977,127 @@
         ]
     },
     {
-        "id": "7a21ce2d.5b28c8",
-        "type": "exec",
+        "id": "8f06d4f.b740928",
+        "type": "e-mail",
         "z": "a994bcf4.bdd358",
-        "command": "curl icanhazip.com",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "mcochirodrioja@gmail.com",
+        "dname": "emailrmcochi",
+        "x": 1080,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "8b6bf794.ed934",
+        "type": "exec",
+        "z": "92c0a218.e77db8",
+        "command": "vcgencmd measure_temp",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
         "timer": "",
-        "name": "IPPública",
-        "x": 300,
-        "y": 980,
+        "name": "RPi Temp.",
+        "x": 350,
+        "y": 260,
         "wires": [
             [
-                "667e4b28.fbf0d4"
+                "6408d66f.f4d538"
             ],
             [],
             []
         ]
     },
     {
-        "id": "f2fa71ed.a8503",
+        "id": "d25e7512.32f1b8",
+        "type": "exec",
+        "z": "92c0a218.e77db8",
+        "command": "top -d 0.5 -b -n2 | grep \"Cpu(s)\"|tail -n 1 | awk '{print $2 + $4}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "CPU Load",
+        "x": 450,
+        "y": 500,
+        "wires": [
+            [
+                "872361b8.5b3ef8",
+                "38bd5b1e.cee7fc",
+                "cd6a6a38.7979f"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1e71f752.c1b771",
+        "type": "exec",
+        "z": "92c0a218.e77db8",
+        "command": "free | grep Mem | awk '{print 100*($4+$6+$7)/$2}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "name": "Free Memory",
+        "x": 370,
+        "y": 680,
+        "wires": [
+            [
+                "d20a874.8a81678"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6408d66f.f4d538",
+        "type": "function",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "func": "str = msg.payload\nmsg.payload = str.substring(5,9);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 496.6666679382324,
+        "y": 246.66666507720947,
+        "wires": [
+            [
+                "d1732c09.df0cc8",
+                "87129235.5cb528",
+                "465e4b59.3b2c7c"
+            ]
+        ]
+    },
+    {
+        "id": "d20a874.8a81678",
+        "type": "function",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "func": "str = msg.payload\nmsg.payload = parseInt(str.substring(0,str.length - 1));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 700,
+        "wires": [
+            [
+                "3268e901.61f166",
+                "757e59b0.cfb84",
+                "c24714f0.82a5a8"
+            ]
+        ]
+    },
+    {
+        "id": "8fd67901.c99b3",
         "type": "inject",
-        "z": "a994bcf4.bdd358",
+        "z": "92c0a218.e77db8",
         "name": "",
         "props": [
             {
@@ -1885,32 +2108,206 @@
                 "vt": "str"
             }
         ],
-        "repeat": "120",
+        "repeat": "1",
         "crontab": "",
-        "once": true,
-        "onceDelay": "1",
+        "once": false,
+        "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 980,
+        "x": 180,
+        "y": 340,
         "wires": [
             [
-                "7a21ce2d.5b28c8"
+                "8b6bf794.ed934",
+                "d25e7512.32f1b8",
+                "1e71f752.c1b771"
             ]
         ]
     },
     {
-        "id": "667e4b28.fbf0d4",
+        "id": "d1732c09.df0cc8",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MeanTemperature",
+        "property": "payload",
+        "action": "mean",
+        "count": "25",
+        "round": "2",
+        "mult": "single",
+        "reduce": false,
+        "x": 670,
+        "y": 160,
+        "wires": [
+            [
+                "5a62b9c5.2e3aa8",
+                "71444c7e.c6c42c"
+            ]
+        ]
+    },
+    {
+        "id": "87129235.5cb528",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MaxTemperature",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "83a6be3e.49e0c8"
+            ]
+        ]
+    },
+    {
+        "id": "465e4b59.3b2c7c",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MinTemperature",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 720,
+        "y": 300,
+        "wires": [
+            [
+                "80051775.74f07"
+            ]
+        ]
+    },
+    {
+        "id": "872361b8.5b3ef8",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MeanCPU",
+        "property": "payload",
+        "action": "mean",
+        "count": "25",
+        "round": "2",
+        "mult": "single",
+        "reduce": false,
+        "x": 670,
+        "y": 440,
+        "wires": [
+            [
+                "79cb59ac.ae74c"
+            ]
+        ]
+    },
+    {
+        "id": "38bd5b1e.cee7fc",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MaxCPU",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 660,
+        "y": 500,
+        "wires": [
+            [
+                "80fae6a2.78023"
+            ]
+        ]
+    },
+    {
+        "id": "cd6a6a38.7979f",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MinCPU",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 660,
+        "y": 560,
+        "wires": [
+            [
+                "16da7760.539091"
+            ]
+        ]
+    },
+    {
+        "id": "3268e901.61f166",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MeanFreeMem",
+        "property": "payload",
+        "action": "mean",
+        "count": "25",
+        "round": "2",
+        "mult": "single",
+        "reduce": false,
+        "x": 800,
+        "y": 640,
+        "wires": [
+            [
+                "128e70bb.9c2277"
+            ]
+        ]
+    },
+    {
+        "id": "757e59b0.cfb84",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MaxFreeMem",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 800,
+        "y": 700,
+        "wires": [
+            [
+                "d4ea36f9.26356"
+            ]
+        ]
+    },
+    {
+        "id": "c24714f0.82a5a8",
+        "type": "smooth",
+        "z": "92c0a218.e77db8",
+        "name": "MinFreeMem",
+        "property": "payload",
+        "action": "max",
+        "count": "25",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 790,
+        "y": 760,
+        "wires": [
+            [
+                "755a9159.8e666"
+            ]
+        ]
+    },
+    {
+        "id": "5a62b9c5.2e3aa8",
         "type": "change",
-        "z": "a994bcf4.bdd358",
-        "name": "failping",
+        "z": "92c0a218.e77db8",
+        "name": "",
         "rules": [
             {
                 "t": "set",
-                "p": "topic",
+                "p": "parts.index",
                 "pt": "msg",
-                "to": "Nueva IP Pública_rpiestanco",
+                "to": "1",
                 "tot": "str"
             }
         ],
@@ -1919,45 +2316,444 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 500,
-        "y": 1000,
+        "x": 910,
+        "y": 120,
         "wires": [
             [
-                "a35348da.931478"
+                "884697ef.1b3a6"
             ]
         ]
     },
     {
-        "id": "a35348da.931478",
-        "type": "rbe",
-        "z": "a994bcf4.bdd358",
-        "name": "BloqueaSinoCambiaEstado",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
+        "id": "71444c7e.c6c42c",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 180,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "83a6be3e.49e0c8",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 240,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "80051775.74f07",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 300,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "884697ef.1b3a6",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "mygroupandcount",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.id",
+                "pt": "msg",
+                "to": "mygroup",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "parts.count",
+                "pt": "msg",
+                "to": "10",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1270,
+        "y": 480,
+        "wires": [
+            [
+                "99ad190b.3dae38"
+            ]
+        ]
+    },
+    {
+        "id": "99ad190b.3dae38",
+        "type": "join",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "mode": "auto",
+        "build": "string",
         "property": "payload",
-        "x": 740,
-        "y": 1000,
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 1470,
+        "y": 480,
         "wires": [
             [
-                "49227a97.8758e4"
+                "b762f75f.f4dfa",
+                "f36fb76e.756178"
             ]
         ]
     },
     {
-        "id": "49227a97.8758e4",
-        "type": "e-mail",
-        "z": "a994bcf4.bdd358",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "tls": true,
-        "name": "rmcochi@gmail.com",
-        "dname": "emailCorodri",
-        "x": 1070,
-        "y": 1000,
+        "id": "b762f75f.f4dfa",
+        "type": "debug",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 400,
         "wires": []
+    },
+    {
+        "id": "79cb59ac.ae74c",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "4",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 440,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "80fae6a2.78023",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "5",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 500,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "16da7760.539091",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "6",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 560,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "128e70bb.9c2277",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "7",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 640,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "d4ea36f9.26356",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 700,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "755a9159.8e666",
+        "type": "change",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "parts.index",
+                "pt": "msg",
+                "to": "9",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 990,
+        "y": 760,
+        "wires": [
+            [
+                "884697ef.1b3a6"
+            ]
+        ]
+    },
+    {
+        "id": "f36fb76e.756178",
+        "type": "csv",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "sep": ";",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 1630,
+        "y": 480,
+        "wires": [
+            [
+                "df774058.e762f"
+            ]
+        ]
+    },
+    {
+        "id": "df774058.e762f",
+        "type": "file",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "filename": "/home/pi/Desktop/rpistats.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 1850,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43ef9bf0.41ca0c",
+        "type": "inject",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 920,
+        "wires": [
+            [
+                "99ddb4c8.71c6d"
+            ]
+        ]
+    },
+    {
+        "id": "99ddb4c8.71c6d",
+        "type": "function",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "func": "msg.payload = \"timestamp;CPU_AVG;CPU_MAX;CPU_MIN;Memory_AVG;Memory_MAX;Memory_MIN;Temperature_AVG;Temperature_MAX;Temperature_MIN\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 920,
+        "wires": [
+            [
+                "eba98ad9.5da468"
+            ]
+        ]
+    },
+    {
+        "id": "eba98ad9.5da468",
+        "type": "file",
+        "z": "92c0a218.e77db8",
+        "name": "",
+        "filename": "/home/pi/Desktop/rpistats.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 630,
+        "y": 920,
+        "wires": [
+            []
+        ]
     }
 ]
